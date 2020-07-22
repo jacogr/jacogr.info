@@ -6,20 +6,16 @@
     <title>jacogr.info</title>
     <style>
       html, body { margin: 0; overflow-x: hidden; overflow-y: auto; padding: 0 }
-      a { background: hsl(33, 100%, 50%); color: white !important; border-bottom: 0.125rem dashed hsl(33, 100%, 50%); border-top: 0.125rem dashed hsl(33, 100%, 50%); border-radius: 0.125rem; letter-spacing: 1px; padding: 0.075rem 0.5rem; margin: -0.2rem 0; text-decoration: none; }
-      body { background: #fcfdfe; color: #545556; font-family: sans-serif; height: 100vh; line-height: 1.65rem; text-align: center }
-      h1, h2, h3 { font-weight: 200; text-transform: lowercase }
-      h1 { font-size: 1.25rem; margin: 0.5rem }
-      h3 { font-size: 1rem; margin: 0.125rem }
-      p { margin: 0 }
+      a { background: hsl(33, 100%, 50%); color: white !important; border-bottom: 0.125rem dashed white; border-top: 0.125rem dashed white; border-radius: 0.125rem; letter-spacing: 1px; padding: 0.075rem 0.5rem; margin: -0.2rem 0; text-decoration: none; }
+      body { background: #f7f8f9; color: #545556; font-family: sans-serif; height: 100vh; line-height: 1.65rem; text-align: center }
       ul { list-style-type: none; margin: 0; padding: 0 }
       li { border-radius: 0.25rem; padding: 0.375rem 2rem }
       li:nth-child(odd) { background: #f3f4f5; }
       section { background: transparent; margin: 0; padding: 2rem 2rem }
       section+section { margin-top: -1rem; padding-top: 0 }
-      #container { display: flex; align-items: center; flex-direction: column; justify-content: center; height: 100% }
-      #sections { background: #fdfeff; border: 0.125rem solid hsl(33, 100%, 50%); border-radius: 0.5rem; max-width: 58rem; min-width: 35rem; width: 50vw; z-index: 2 }
-      .ball { position: absolute }
+      #container { display: flex; align-items: center; flex-direction: column; height: 100%; justify-content: center }
+      #sections { background: #fdfeff; border: 0.125rem solid white; border-radius: 0.5rem; max-width: 58rem; min-width: 35rem; width: 50vw; z-index: 2 }
+      .ball { opacity: 0.2; position: absolute }
     </style>
   </head>
   <body>
@@ -50,7 +46,7 @@
       let ballId = 0;
 
       // create a single ball
-      function addBall (diameter = 50, x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null, opacity = 0.2) {
+      function addBall (diameter = 50, x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null) {
         const id = `ball${ballId++}`;
         const div = document.createElement('div');
 
@@ -62,13 +58,12 @@
         div.style.width = `${diameter}px`;
         div.style.left = x;
         div.style.top = y;
-        div.style.opacity = opacity;
         document.body.appendChild(div);
 
         dx = ((dx > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
         dy = ((dy > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
 
-        balls.push({ id, div, diameter, x, y, dx, dy, parentId, opacity });
+        balls.push({ id, div, diameter, x, y, dx, dy, parentId });
       }
 
       // Random background by tweaking the hue. Additionally it adjusts the link & border colors (Stolen from myself at dotapps.io)
@@ -80,7 +75,7 @@
         setInterval(() => {
           hue = (hue + 1) % 360;
           nextColor = `hsl(${hue}, 45%, 45%)`;
-          style.innerHTML = `a { background: hsl(${hue}, 45%, 45%); color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } h1, h2, h3 { color: hsl(${hue}, 45%, 45%) } #sections { border-color: hsl(${hue}, 45%, 45%) }`;
+          style.innerHTML = `a { background: ${nextColor}; color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } #sections { border-color: ${nextColor} }`;
         }, 75);
       }
 
@@ -120,10 +115,10 @@
 
           if (splitAt === 1) {
             ball.dy = -ball.dy;
-            isBreaking && addBall(ball.diameter, ball.x, ball.y, -ball.dx, ball.dy, ball.id, ball.opacity);
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, -ball.dx, ball.dy, ball.id);
           } else {
             ball.dx = -ball.dx;
-            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, -ball.dy, ball.id, ball.opacity);
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, -ball.dy, ball.id);
           }
         }
       }

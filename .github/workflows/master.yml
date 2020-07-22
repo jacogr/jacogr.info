@@ -1,0 +1,24 @@
+name: Master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ipfs:
+    strategy:
+      matrix:
+        step: ['publish']
+    name: ${{ matrix.step }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: ${{ matrix.step }}
+      env:
+        CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        PINATA_API_KEY: ${{ secrets.PINATA_API_KEY }}
+        PINATA_SECRET_KEY: ${{ secrets.PINATA_SECRET_KEY }}
+      run: |
+        yarn install --immutable | grep -v 'YN0013'
+        yarn ${{ matrix.step }}

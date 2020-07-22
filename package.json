@@ -1,0 +1,17 @@
+{
+  "name": "jacogr.info",
+  "version": "1.0.0",
+  "description": "IPFS site",
+  "main": "index.js",
+  "repository": "git@github.com:jacogr/jacogr.info.git",
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "publish": "./scripts/ipfsUpload.js"
+  },
+  "dependencies": {
+    "@pinata/sdk": "^1.1.10",
+    "dnslink-cloudflare": "^3.0.0"
+  }
+}
