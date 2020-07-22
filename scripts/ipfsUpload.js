@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
 const pinataSDK = require('@pinata/sdk');
 const cloudflare = require('dnslink-cloudflare');
 
@@ -10,8 +9,7 @@ const PINMETA = { name: DOMAIN };
 const pinata = pinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_KEY);
 
 async function pin () {
-  const stream = fs.createReadStream('./ipfs.html');
-  const result = await pinata.pinFileToIPFS(stream, { pinataMetadata: PINMETA });
+  const result = await pinata.pinFromFS('./ipfs', { pinataMetadata: PINMETA });
 
   console.log(`Pinned ${JSON.stringify(result)}`);
 
