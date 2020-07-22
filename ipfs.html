@@ -7,40 +7,69 @@
     <style>
       html, body { margin: 0; overflow-x: hidden; overflow-y: auto; padding: 0 }
       a { background: #44f; color: white !important; border-bottom: 0.125rem dashed white; border-top: 0.125rem dashed white; border-radius: 0.125rem; letter-spacing: 1px; padding: 0.075rem 0.5rem; margin: -0.2rem 0; text-decoration: none; }
-      body { background: #f5f4f3; color: #545556; font-family: sans-serif; height: 100vh; line-height: 1.65rem; text-align: center }
+      body { background: #fcfdfe; color: #545556; font-family: sans-serif; height: 100vh; line-height: 1.65rem; text-align: center }
       h1, h2, h3 { font-weight: 200; text-transform: lowercase }
       h1 { font-size: 1.25rem; margin: 0.5rem }
       h3 { font-size: 1rem; margin: 0.125rem }
       p { margin: 0 }
       ul { list-style-type: none; margin: 0; padding: 0 }
-      li { padding: 0.375rem 2rem }
-      li:nth-child(odd) { background: rgba(200, 200, 200, 0.25) }
+      li { border-radius: 0.25rem; padding: 0.375rem 2rem }
+      li:nth-child(odd) { background: rgba(255, 255, 255, 0.75) }
       section { background: transparent; margin: 0; padding: 2rem 2rem }
       section+section { margin-top: -1rem; padding-top: 0 }
       #container { display: flex; align-items: center; flex-direction: column; justify-content: center; height: 100% }
       #sections { background: white; border: 0.125rem solid #e4e6e8; border-radius: 0.5rem; max-width: 58rem; min-width: 35rem; width: 50vw; z-index: 2 }
+      .ball { position: absolute }
     </style>
   </head>
   <body>
+    <div id="ball"></div>
     <div id="container">
       <div id="sections">
         <section>Well, this is me. I build stuff.</section>
-        <section>Currently I'm spending all my waking/working hours on <a href="https://github.com/polkadot-js" target="_blank">polkadot-js</a> because I believe I can add value in my efforts and it aligns with my views on decentralization. I am lucky enough that <a href="https://www.parity.io/" target="_blank">Parity</a> keeps me around to work on my dreams and allowed me to pursue efforts outside of the core node.</section>
-        <section>When not building, I hang around on <a href="https://kusama.dotapps.io" target="_blank">Kusama</a> and <a href="https://polkadot.dotapps.io" target="_blank">Polkadot</a>, actually using the same interfaces and libraries I have had a hand in developing.</section>
-        <section><ul>
-          <li>Talking is easy. I prefer letting my actions speak for me.</li>
-          <li>I am not a maximalist. Not on the blockchain, not in life.</li>
-          <li>In blockchain I am a holder, validator, nominator, developer and employee. In that order.</li>
-          <li>In life I am a father, husband, developer. In that order... well, I try.</li>
-          <li>I am not perfect. I am human. I make mistakes. I try not to.</li>
-        </ul></section>
-        <section>In the decentralized world, we have a lot of work left - sadly I swear at myself at points since we are not moving fast enough. And a lot of time I just swear at myself since I am not moving fast enough. I would love to see:</section>
+        <section>Currently I'm spending all my waking/working hours on <a href="https://github.com/polkadot-js" target="_blank">polkadot-js</a> because I believe it adds value and the effort aligns with my views on decentralization. I am lucky enough that <a href="https://www.parity.io/" target="_blank">Parity</a> keeps me around and allows me to pursue efforts outside the core as the maintainer for this project.</section>
+        <section>When not building, I am an active user of the same interfaces and libraries I have had a hand in developing on <a href="https://kusama.dotapps.io" target="_blank">Kusama</a> and <a href="https://polkadot.dotapps.io" target="_blank">Polkadot</a>. In a certain sense I'm the lab-rat for enhancements that are made to better the experience for both end-users and developers.</section>
+        <section>
+          <ul>
+            <li>Talking is easy. I prefer letting my actions speak for me.</li>
+            <li>I am not a maximalist. Not on the blockchain, not in life.</li>
+            <li>In blockchain I am a holder, validator, nominator, developer and employee. In that order.</li>
+            <li>In life I am a father, husband, developer. In that order... well, I try.</li>
+            <li>I am human. I am not perfect. I make mistakes. I try not to.</li>
+          </ul>
+        </section>
+        <section>In the decentralized world, we have a lot of work left - sadly I sometimes swear at myself since we are not moving fast enough. And a lot of time I just swear at myself since I am not iterating fast enough. I would love to see:</section>
         <section>Blockchains sharing security and messages; Blockchain governance that is action driven; Linking of decentralized technologies; Stability on Polkadot and risk-taking on Kusama; Making decentralized technologies easy to use for "normal" people; Web3 to grow into the promise it has made.</section>
       </div>
     </div>
     <script>
+      const RATIO_BREAK = 0.66;
+      let balls = [];
+      let ballId = 0;
+
+      // create a single ball
+      function addBall (diameter = 50, x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null, opacity = 1) {
+        const id = `ball${ballId++}`;
+        const div = document.createElement('div');
+
+        div.className = 'ball';
+        div.setAttribute('id', id);
+        div.style.borderRadius = `${diameter}px`;
+        div.style.height = `${diameter}px`;
+        div.style.width = `${diameter}px`;
+        div.style.left = x;
+        div.style.top = y;
+        div.style.opacity = opacity;
+        document.body.appendChild(div);
+
+        dx = ((dx > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
+        dy = ((dy > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
+
+        balls.push({ id, div, diameter, x, y, dx, dy, parentId, opacity });
+      }
+
       // Random background by tweaking the hue. Additionally it adjusts the link & border colors (Stolen from myself at dotapps.io)
-      function changeBackground () {
+      function changeColors () {
         const style = document.createElement('style');
         let hue = Math.floor(Math.random() * 359);
 
@@ -48,12 +77,102 @@
 
         setInterval(() => {
           hue = (hue + 1) % 360;
-          document.body.style.background = `hsl(${hue}, 15%, 85%)`;
-          style.innerHTML = `a { background: hsl(${hue}, 45%, 45%); color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } h1, h2, h3 { color: hsl(${hue}, 45%, 45%) } #sections { border-color: hsl(${hue}, 45%, 45%); background: hsl(${hue}, 35%, 95%) }`;
+          // document.body.style.background = `hsl(${hue}, 15%, 85%)`;
+          style.innerHTML = `a { background: hsl(${hue}, 45%, 45%); color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } h1, h2, h3 { color: hsl(${hue}, 45%, 45%) } #sections { border-color: hsl(${hue}, 45%, 45%); background: hsl(${hue}, 35%, 95%) } .ball { background: hsl(${hue}, 65%, 65%) }`;
         }, 75);
       }
 
-      changeBackground();
+      // bounce a ball around the screen
+      function bounceBall (ball) {
+        let splitAt = 0;
+
+        // move it
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        // bottom/top
+        if ((ball.y + ball.diameter) >= window.innerHeight) {
+          ball.y = window.innerHeight - ball.diameter;
+          splitAt = 1;
+        } else if (ball.y <= 0) {
+          ball.y = 0;
+          splitAt = 1;
+        }
+
+        // right/left
+        if ((ball.x + ball.diameter) >= window.innerWidth) {
+          ball.x = window.innerWidth - ball.diameter;
+          splitAt = 2;
+        } else if (ball.x <= 0) {
+          ball.x = 0;
+          splitAt = 2;
+        }
+
+        // edge detected, split in two
+        if (splitAt) {
+          const isBreaking = Math.random() <= RATIO_BREAK;
+
+          ball.div.style.borderRadius = `${ball.diameter}px`;
+          ball.div.style.height = `${ball.diameter}px`;
+          ball.div.style.width = `${ball.diameter}px`;
+
+          if (splitAt === 1) {
+            ball.dy = -ball.dy;
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, -ball.dx, ball.dy, ball.id, ball.opacity);
+          } else {
+            ball.dx = -ball.dx;
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, -ball.dy, ball.id, ball.opacity);
+          }
+        }
+      }
+
+      // merge balls that are overlapping, but don't not split
+      function mergeBall (ball, index) {
+        const overlap = balls.find((other) =>
+          other && other !== ball &&
+          ball.id !== other.parentId && ball.parentId !== other.id &&
+          (
+            (
+              (ball.x + ball.diameter / 4) >= other.x && (ball.x + ball.diameter / 4) <= (other.x + other.diameter) &&
+              (ball.y + ball.diameter / 4) >= other.y && (ball.y + ball.diameter / 4) <= (other.y + other.diameter)
+            ) ||
+            (
+              (other.x + other.diameter / 4) >= ball.x && (other.x + other.diameter / 4) <= (ball.x + ball.diameter) &&
+              (other.y + other.diameter / 4) >= ball.y && (other.y + other.diameter / 4) <= (ball.y + ball.diameter)
+            )
+          )
+        );
+
+        // combine into the overlap
+        if (overlap) {
+          ball.div.parentNode.removeChild(ball.div);
+          balls[index] = null;
+        }
+      }
+
+      // Bounce the ball around the screen
+      function animateBalls () {
+        // combine balls
+        balls.forEach(mergeBall);
+
+        // filter out the dead wood
+        balls = balls.filter((ball) => ball);
+
+        // bounce balls
+        balls.forEach(bounceBall);
+
+        // adjust on-screen position
+        balls.forEach(({ div, x, y }) => {
+          div.style.left = `${x}px`;
+          div.style.top = `${y}px`;
+        });
+
+        window.requestAnimationFrame(animateBalls);
+      }
+
+      addBall();
+      changeColors();
+      window.requestAnimationFrame(animateBalls);
     </script>
   </body>
 </html>
