@@ -39,7 +39,7 @@
       </div>
     </div>
     <script>
-      const RATIO_BREAK = 0.55;
+      const RATIO_BREAK = 1;
       let hue = Math.floor(Math.random() * 359);
       let nextColor = `hsl(${hue}, 45%, 45%)`;
       let balls = [];
@@ -60,8 +60,8 @@
         div.style.top = y;
         document.body.appendChild(div);
 
-        dx = ((dx > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
-        dy = ((dy > 0) ? 1 : -1) * ((Math.random() * 2) + 4);
+        dx = ((dx > 0) ? 1 : -1) * ((Math.random() * 5) + 2);
+        dy = ((dy > 0) ? 1 : -1) * ((Math.random() * 5) + 2);
 
         balls.push({ id, div, diameter, x, y, dx, dy, parentId });
       }
@@ -115,10 +115,10 @@
 
           if (splitAt === 1) {
             ball.dy = -ball.dy;
-            isBreaking && addBall(ball.diameter, ball.x, ball.y, -ball.dx, ball.dy, ball.id);
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, ball.dy, ball.id);
           } else {
             ball.dx = -ball.dx;
-            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, -ball.dy, ball.id);
+            isBreaking && addBall(ball.diameter, ball.x, ball.y, ball.dx, ball.dy, ball.id);
           }
         }
       }
