@@ -34,7 +34,7 @@
             <li>I am human. I am not perfect. I make mistakes. I try not to.</li>
           </ul>
         </section>
-        <section>In the decentralized world, we have a lot of work left - sadly I sometimes swear at myself since we are not moving fast enough. And a lot of time I just swear at myself since I am not iterating fast enough. I would love to see:</section>
+        <section>In the decentralized world, we have a lot of work left - sadly I sometimes swear at myself since we are not moving fast enough. And a lot of times I just swear at myself since I am not iterating fast enough. I would love to see:</section>
         <section>Blockchains sharing security and messages; Blockchain governance that is action driven; Linking of decentralized technologies; Stability on Polkadot and risk-taking on Kusama; Making decentralized technologies easy to use for "normal" people; Web3 to grow into the promise it has made.</section>
       </div>
     </div>
@@ -46,6 +46,13 @@
       let nextColor = `hsl(${hue}, 45%, 45%)`;
       let balls = [];
       let ballId = 0;
+
+      // update the colors via hue
+      function rotateColors () {
+        hue = (hue + 1) % 360;
+        nextColor = `hsl(${hue}, 45%, 45%)`;
+        style.innerHTML = `a { background: ${nextColor}; color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } #sections { border-color: ${nextColor} }`;
+      }
 
       // create a single ball
       function addBall (x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null) {
@@ -63,19 +70,6 @@
         dy = ((dy > 0) ? 1 : -1) * ((Math.random() * 5) + 2);
 
         balls.push({ id, div, x, y, dx, dy, parentId });
-      }
-
-      // Random background by tweaking the hue. Additionally it adjusts the link & border colors (Stolen from myself at dotapps.io)
-      function changeColors () {
-        const style = document.createElement('style');
-
-        document.head.appendChild(style);
-
-        setInterval(() => {
-          hue = (hue + 1) % 360;
-          nextColor = `hsl(${hue}, 45%, 45%)`;
-          style.innerHTML = `a { background: ${nextColor}; color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } #sections { border-color: ${nextColor} }`;
-        }, 75);
       }
 
       // bounce a ball around the screen
@@ -157,9 +151,17 @@
         window.requestAnimationFrame(animateBalls);
       }
 
-      changeColors();
+      const style = document.createElement('style');
+
+      document.head.appendChild(style);
+
+      // initial setup
+      rotateColors(style);
       addBall();
+
+      // on timers
       window.requestAnimationFrame(animateBalls);
+      setInterval(() => rotateColors(style), 75);
     </script>
   </body>
 </html>
