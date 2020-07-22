@@ -43,17 +43,20 @@
       </div>
     </div>
     <script>
-      const RATIO_BREAK = 0.66;
+      const RATIO_BREAK = 0.55;
+      let hue = Math.floor(Math.random() * 359);
+      let nextColor = `hsl(${hue}, 55%, 55%)`;
       let balls = [];
       let ballId = 0;
 
       // create a single ball
-      function addBall (diameter = 50, x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null, opacity = 1) {
+      function addBall (diameter = 50, x = Math.floor(Math.random() * window.innerWidth / 2), y = Math.floor(Math.random() * window.innerHeight / 2), dx = 5, dy = 5, parentId = null, opacity = 0.35) {
         const id = `ball${ballId++}`;
         const div = document.createElement('div');
 
         div.className = 'ball';
         div.setAttribute('id', id);
+        div.style.background = nextColor;
         div.style.borderRadius = `${diameter}px`;
         div.style.height = `${diameter}px`;
         div.style.width = `${diameter}px`;
@@ -71,14 +74,13 @@
       // Random background by tweaking the hue. Additionally it adjusts the link & border colors (Stolen from myself at dotapps.io)
       function changeColors () {
         const style = document.createElement('style');
-        let hue = Math.floor(Math.random() * 359);
 
         document.head.appendChild(style);
 
         setInterval(() => {
           hue = (hue + 1) % 360;
-          // document.body.style.background = `hsl(${hue}, 15%, 85%)`;
-          style.innerHTML = `a { background: hsl(${hue}, 45%, 45%); color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } h1, h2, h3 { color: hsl(${hue}, 45%, 45%) } #sections { border-color: hsl(${hue}, 45%, 45%); background: hsl(${hue}, 35%, 95%) } .ball { background: hsl(${hue}, 65%, 65%) }`;
+          nextColor = `hsl(${hue}, 55%, 55%)`;
+          style.innerHTML = `a { background: hsl(${hue}, 45%, 45%); color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } h1, h2, h3 { color: hsl(${hue}, 45%, 45%) } #sections { border-color: hsl(${hue}, 45%, 45%); background: hsl(${hue}, 35%, 95%) }`;
         }, 75);
       }
 
@@ -170,8 +172,8 @@
         window.requestAnimationFrame(animateBalls);
       }
 
-      addBall();
       changeColors();
+      addBall();
       window.requestAnimationFrame(animateBalls);
     </script>
   </body>
