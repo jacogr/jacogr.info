@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 const pinataSDK = require('@pinata/sdk');
 const cloudflare = require('dnslink-cloudflare');
