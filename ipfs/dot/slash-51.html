@@ -9,17 +9,22 @@
   <body>
     <div id="balls"></div>
     <div id="container">
+      <div class="header">
+        <div><a href="index.html">dot</a></div>
+        <div>polkadot/era 51</div>
+      </div>
       <div id="sections">
-        <section>Well, it was bound to happen. With rewards, there are risks. In staking, there is the risk of slashing. Sadly, the dubious honor of being "first to be slashed" belongs to me.</section>
-        <section>First the concerning bits: With all else being equal, where there are funding gaps on accounts placing trust, they will be made whole. This means that if your address appears in the <a href="slash-51-addr.html">linked table of affected nominators</a> and the slash is applied, expect a top-up as soon as we have transfers.</section>
-        <section>So back to the crux of the issue. Like I said in my <a href="../">index page</a>, "I make mistakes. I try not to". This means that generally I take actions based on the information and knowledge available to me - and in hindsight this information, despite proven in practice, may be lacking. Sadly on era 51, this was exactly the case. The short version:</section>
+        <section>Sadly, the dubious honor of "first to be slashed on Polkadot" belongs to me.</section>
+        <section>First the concerning bits: With all else being equal, where there are funding gaps on accounts placing trust, they will be made whole. This means that if your address appears in the <a href="slash-51-addr.html">linked table of affected nominators</a> and the slash is applied, you will receive a top-up as soon as we have transfers.</section>
+        <section>So back to the crux of the issue. Like I said <a href="../">elsewhere</a>, "I make mistakes. I try not to". This means that generally I take actions based on the information and knowledge available to me - and in hindsight this information, despite proven in practice, may be lacking. The short version:</section>
         <section>During a slightly less than optimal period of stability, one of the restarts on a non-validating node yielded a corrupt database. To ensure the active validator nodes don't suffer the exact same corruption fate, I opted for freshly restored databases on the active nodes, moving from RocksDb to ParityDb in the process. However...</section>
-        <section>... Grandpa state is also stored in the database, so the restoration of blocks/state from a non-validating node removed up the Grandpa state and the node ended up reporting itself and another active (also restored) node as misbehaving. The information was cleanly restored, no extra downtime, just not all of it.</section>
+        <section>... Grandpa state is also stored in the database, so the restoration of blocks/state from a non-validating node removed the Grandpa state. The node started up, looked for valid state and ended up reporting itself and another active node (also restored) as misbehaving. The information was cleanly restored, no extra downtime, just not all of it.</section>
+        <section>The learnings here is that best practice is not just avoiding downtime, being vigilant in planning for failures, ensuring keys are not shared, but also ensuring that a full own-node database backup is used at all times. Restoring from "elsewhere" (as often advocated and employed by operators), may end up with unintended consequences.</section>
         <section>
           <ul>
             <li>Do you believe it was clearly a software bug? Make no mistake I had "some" issues with stability in the last while, but the node didn't decide to slash itself.</li>
             <li>Do you believe it is operator error? The actions taken were made clear-headed, all based on steps taken before in testnets and other live networks, nothing that goes against documented approaches.</li>
-            <li>So you blame knowledge? I cannot subscribe to a "I don't know" defence and based on prior testing, the outcome was (seemingly) known.</li>
+            <li>So you blame knowledge? I cannot subscribe to a "I didn't know" defence and based on prior testing, the outcome was (seemingly) known.</li>
           </ul>
         </section>
         <section>Overall, it is gray - there are certainly improvements that can be made, but sometimes a combination ends up creating a small storm of effects. Dark unexplored corners sometimes (even if you've been there before) yield spiders. Be safe out there.
