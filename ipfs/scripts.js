@@ -11,7 +11,7 @@ let ballId = 0;
 function rotateColors () {
   hue = (hue + 1) % 360;
   nextColor = `hsl(${hue}, 45%, 45%)`;
-  style.innerHTML = `a { background: ${nextColor}; color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) } #sections { border-color: ${nextColor} }`;
+  style.innerHTML = `a { background: ${nextColor}; color: hsl(${hue}, 35%, 95%) !important; border-color: hsl(${hue}, 35%, 95%) }`;
 }
 
 // create a single ball
