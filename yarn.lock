@@ -46,9 +46,9 @@ __metadata:
   linkType: hard
 
 "@sindresorhus/is@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@sindresorhus/is@npm:3.0.0"
-  checksum: 77cdb085422e8bf44783441a7bafff16b456123084447e2cc1aebbb9958b95469a82fec71b185457b9ddf1caf6c2d098a16e4ffed74f283411724277223d9475
+  version: 3.1.0
+  resolution: "@sindresorhus/is@npm:3.1.0"
+  checksum: 36aa125d2481c3fe9a0c2c02f352c31c933cd89b87bf7fa5abc5b4adbc80a47ae67009dd39c637ea4e155b9e61a752cf13b5b73cb1eb96005dbbabaad4002f19
   languageName: node
   linkType: hard
 
@@ -97,9 +97,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 14.0.24
-  resolution: "@types/node@npm:14.0.24"
-  checksum: b10d6b56faeb7fdf2d2527d7aa685b472adaf810612903d667e364eb53a1ffd2ee0e74f25ab135375c7c3f77400cf05a569d7b8d5eee51cbf7b2f748ec86383d
+  version: 14.0.27
+  resolution: "@types/node@npm:14.0.27"
+  checksum: 54ecf408eb94f44685e12ef395d8d9d5789cb9e209f171153b6b951272af6b8da099778d09d66454aa5d35ce246f3922ebd7476ed768bf3bd4267306c12a6703
   languageName: node
   linkType: hard
 
@@ -878,14 +878,14 @@ __metadata:
   linkType: hard
 
 "parse-json@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "parse-json@npm:5.0.0"
+  version: 5.0.1
+  resolution: "parse-json@npm:5.0.1"
   dependencies:
     "@babel/code-frame": ^7.0.0
     error-ex: ^1.3.1
     json-parse-better-errors: ^1.0.1
     lines-and-columns: ^1.1.6
-  checksum: 9c46eb0c388df4333eaa4feb996deae32f32ab447723abe48fdc6756bce863cf46009d56485fde0178bfe3ac9002ef0c3540ff4b278ad3ada2abc12186413eb8
+  checksum: 051a5ebaed679acc1cea7248b96bdab4eaa02bf7c1043ab79cfc2099dd64a137a2b5320b1111e40562bf2912832dd2b58220c36a4c6557906de8bce43a491196
   languageName: node
   linkType: hard
 
